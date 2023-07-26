@@ -1,0 +1,23 @@
+.bs5-dropdown .dropdown-toggle {
+	white-space: nowrap;
+	word-break: keep-all;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding-right: 2rem;
+	position: relative;
+}
+
+.bs5-dropdown .dropdown-toggle::after {
+	position: absolute;
+	top: 1rem;
+	right: 0.5rem;
+}
+
+.bs5-dropdown .dropdown-menu {
+	min-width: 100%;
+	max-width: 130%;
+}
+.bs5-dropdown .dropdown-item:active{
+	background-color: var(--bs-tertiary-bg);
+	color: var(--bs-body-color);
+}
