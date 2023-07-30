@@ -50,8 +50,8 @@
 											<div class="d-flex">
 												<a class="dropdown-item" :class="{'bg-light': item.selected}" href="#"
 													x-on:click="toggleCheckbox(item)">
-													<label class="px-3 pt-1" x-on:click.stop>
-														<input type="checkbox" :checked="item.selected"
+													<label class="px-3 pt-1" x-on:click="toggleCheckbox(item)">
+														<input type="checkbox" :checked="item.selected" x-on:click.stop="toggleCheckbox(item)"
 															x-model="item.selected" />
 													</label>
 													<span x-text="item.text"></span>
