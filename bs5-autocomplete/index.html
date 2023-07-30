@@ -1,277 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Bootstrap demo</title>
-	<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 	<div class="container mt-5">
-	<div class="row">
-		<div class="col-md-6">
-		<form action="">
-			<div class="mt-3">
-			<label class="form-label">Chọn một công ty</label>
-			<input type="text" id="companyId" readonly class="form-control" />
-			</div>
-			<div class="mt-3">
-			<select class="form-select" id="dataSelect">
-				<option value="">Chọn một giá trị</option>
-				<option value="1">Chọn một giá trị 1</option>
-				<option value="2">Không chọn giá trị 2</option>
-				<option value="3">Phần mềm quản lý 3</option>
-				<option value="4">Thiết kế đồ họa 4</option>
-				<option value="5">Chọn một giá trị 5</option>
-				<option value="6">Chọn một giá trị 6</option>
-			</select>
-			</div>
-			<div class="mt-3">
-			<label class="form-label"
-				>Chọn 1 công ty (liên kết với textbox ở trên)</label
-			>
-			<div
-				class="dropdown bs5-dropdown"
-				x-data="bs5autocomplete(['id', 'companyName'], 1)"
-				data-output-ele="#companyId"
-				data-select="#dataSelect"
-				data-uri="json/company.json"
-			>
-				<button
-				class="form-control text-start dropdown-toggle"
-				type="button"
-				data-bs-toggle="dropdown"
-				data-bs-auto-close="outside"
-				aria-expanded="false"
-				x-text="_setting.text"
-				>
-				...
-				</button>
-				<div class="dropdown-menu">
-				<div class="px-3 py-2 border-bottom">
-					<input
-					type="search"
-					class="form-control"
-					:placeholder="_setting.placeholder"
-					x-on:input="search($event.target.value)"
-					/>
-				</div>
-				<div :style="_setting.style">
-					<template x-for="item in _data">
-					<template x-if="item.show">
-						<div class="d-flex">
-						<a
-							class="dropdown-item"
-							:class="{'bg-light': item.selected}"
-							href="#"
-							x-on:click="toggleCheckbox(item)"
-						>
-							<label class="px-3 pt-1" x-on:click.stop>
-							<input
-								type="checkbox"
-								:checked="item.selected"
-								x-model="item.selected"
-							/>
-							</label>
-							<span x-text="item.text"></span>
-						</a>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="">
+					<div class="mt-3">
+						<label class="form-label">Chọn một công ty</label>
+						<input type="text" id="companyId" readonly class="form-control" />
+					</div>
+					<div class="mt-3">
+						<select class="form-select" id="dataSelect">
+							<option value="1">Chọn một giá trị 1</option>
+							<option value="2">Không chọn giá trị 2</option>
+							<option value="3">Phần mềm quản lý 3</option>
+							<option value="4">Thiết kế đồ họa 4</option>
+							<option value="5">Chọn một giá trị 5</option>
+							<option value="6">Chọn một giá trị 6</option>
+						</select>
+					</div>
+
+					<!-- Component map giá trị từ json -->
+					<div class="mt-3">
+						<label class="form-label">Chọn 1 công ty (liên kết với textbox ở trên)</label>
+						<div class="dropdown bs5-dropdown" x-data="bs5autocomplete(1, ['id', 'companyName'])"
+							data-output-ele="#companyId" data-uri="json/company.json" data-name="company1" :title="_setting.title">
+							<button class="form-control text-start dropdown-toggle" type="button"
+								data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+								x-text="_setting.text">
+								...
+							</button>
+							<div class="dropdown-menu">
+								<div class="px-3 py-2 border-bottom">
+									<input type="search" class="form-control" :placeholder="_setting.placeholder"
+										x-on:input="search($event.target.value)" />
+								</div>
+								<div :style="_setting.style">
+									<template x-for="item in _data">
+										<template x-if="item.show">
+											<div class="d-flex">
+												<a class="dropdown-item" :class="{'bg-light': item.selected}" href="#"
+													x-on:click="toggleCheckbox(item)">
+													<label class="px-3 pt-1" x-on:click.stop>
+														<input type="checkbox" :checked="item.selected"
+															x-model="item.selected" />
+													</label>
+													<span x-text="item.text"></span>
+												</a>
+											</div>
+										</template>
+									</template>
+								</div>
+							</div>
 						</div>
-					</template>
-					</template>
-				</div>
-				</div>
+					</div>
+
+					<!-- Component lấy giá trị từ thẻ select -->
+					<div class="mt-3">
+						<label class="form-label">Chọn 1 công ty (liên kết với textbox ở trên)</label>
+						<div class="dropdown bs5-dropdown" x-data="bs5autocomplete" data-output-ele="#companyId"
+							data-select="#dataSelect" data-multiple="true" data-name="company2" :title="_setting.title">
+							<button class="form-control text-start dropdown-toggle" type="button"
+								data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+								x-text="_setting.text">
+								...
+							</button>
+							<div class="dropdown-menu">
+								<div class="px-3 py-2 border-bottom">
+									<input type="search" class="form-control" :placeholder="_setting.placeholder"
+										x-on:input="search($event.target.value)" />
+								</div>
+								<div :style="_setting.style">
+									<template x-for="item in _data">
+										<template x-if="item.show">
+											<div class="d-flex">
+												<a class="dropdown-item" :class="{'bg-light': item.selected}" href="#"
+													x-on:click="toggleCheckbox(item)">
+													<label class="px-3 pt-1" x-on:click.stop>
+														<input type="checkbox" :checked="item.selected"
+															x-model="item.selected" />
+													</label>
+													<span x-text="item.text"></span>
+												</a>
+											</div>
+										</template>
+									</template>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
-			</div>
-		</form>
 		</div>
 	</div>
-	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-	defer
-	src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-	></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 	<script>
-	/**
-	 * addAlpineData
-	 *
-	 * @param   name    {string}
-	 * @param   data    {object}
-	 * @param   params  {object}
-	 */
-	function addAlpineData(name, data = {}) {
-		document.addEventListener("alpine:init", function () {
-		Alpine.data(name, function (...params) {
-			data.$params = params;
-			return data;
-		});
-		});
-	}
-	addAlpineData("bs5autocomplete", {
-		_setting: {
-		minCharsToFind: 2,
-		placeholder: "Nhập ít nhất {num} ký tự để tìm kiếm",
-		text: "-- Chọn một giá trị --", // Đặt text mặc định để không bị thay đổi layout quá nhiều
-		style: {
-			maxHeight: "300px",
-			overflow: "auto",
-		},
-		},
-		// dropdown dưới dạng JS object để dễ xử lý
-		_dropdown: {},
-		/**
-		 * mảng chứa object với cấu trúc như sau
-		 *		value				: number|string
-		*		text				: string
-		*		noAccentsText		: string
-		*		selected			: bool
-		*		show				: bool
-		**/
-		_data: [],
-		/**
-		 * Định nghĩa mảng các key để chuyển đổi dữ liệu theo nguyên tắc
-		 *		0	=>	value
-		*		1	=>	text
-		**/
-		_mapper: [],
-		getSelectedValue() {
-		return this._data.filter((i) => i.selected == true)?.pop().value;
-		},
-		setSelectedValue(...value) {
-		for (let i = 0; i < this._data.length; i++) {
-			const item = this._data[i];
-			item.selected = value.indexOf(item.value) >= 0;
-		}
-		},
-		toggleCheckbox(item) {
-		item.selected = !item.selected;
-		},
-		search(keyword) {
-		if (keyword.length < this._setting.minCharsToFind) {
-			for (let i = 0; i < this._data.length; i++) {
-			this._data[i].show = true;
-			}
-		} else {
-			keyword = keyword.toLowerCase();
-			for (let i = 0; i < this._data.length; i++) {
-			const item = this._data[i];
-			if (
-				item.text.toLowerCase().indexOf(keyword) >= 0 ||
-				item.noAccentsText.toLowerCase().indexOf(keyword) >= 0
-			) {
-				item.show = true;
-			} else {
-				item.show = false;
-			}
-			}
-		}
-		},
-		// constructor
-		init() {
-		let uri = this.$el.getAttribute("data-uri");
-		let dataSelect = this.$el.getAttribute("data-select");
-		let output = document.querySelector(
-			this.$el.getAttribute("data-output-ele")
-		);
-		let selectedValues = this.$params[1];
-		this._dropdown = new bootstrap.Dropdown(this.$el);
-		this._mapper = this.$params[0];
-		this._setting.placeholder = this._setting.placeholder.replace(
-			"{num}",
-			this._setting.minCharsToFind
-		);
-		let strValue = "";
-		let text = "";
-		let noAccentsText = "";
-		let dataItem = {};
-		if (dataSelect) {
-			// Lấy data từ thẻ select
-			let options = Array.from(
-			document.querySelector(dataSelect).options
-			);
-			options.forEach((item) => {
-			strValue = item.value;
-			text = item.text;
-			noAccentsText = text
-				.normalize("NFD")
+		String.prototype.removeAccents = function () {
+			return this.normalize("NFD")
 				.replace(/[\u0300-\u036f]/g, "")
 				.replace("đ", "d")
-				.replace("Đ", "d")
-				.toLowerCase();
-			dataItem = {
-				value: strValue,
-				text,
-				noAccentsText,
-				show: true,
-			};
-			if (strValue) {
-				if (
-				typeof selectedValues == "string" ||
-				typeof selectedValues == "number"
-				) {
-				dataItem.selected = strValue == selectedValues;
-				} else {
-				dataItem.selected = selectedValues
-					? selectedValues.findIndex((s) => s == strValue) >= 0
-					: false;
-				}
-				this._data.push(dataItem);
-			}
-			});
-		} else if (uri) {
-			// Nhận data từ uri
-			fetch(uri)
-			.then((res) => res.json())
-			.then((json) => {
-				if (json) {
-				json.forEach((item) => {
-					strValue = item[this._mapper[0]].toString();
-					text = item[this._mapper[1]];
-					noAccentsText = text
-					.normalize("NFD")
-					.replace(/[\u0300-\u036f]/g, "")
-					.replace("đ", "d")
-					.replace("Đ", "d")
-					.toLowerCase();
-					dataItem = {
-					value: strValue,
-					text,
-					noAccentsText,
-					show: true,
-					};
-					if (
-					typeof selectedValues == "string" ||
-					typeof selectedValues == "number"
-					) {
-					dataItem.selected = strValue == selectedValues;
-					} else {
-					dataItem.selected = selectedValues
-						? selectedValues.findIndex((s) => s == strValue) >= 0
-						: false;
-					}
-					this._data.push(dataItem);
-				});
-				}
-			});
+				.replace("Đ", "d");
 		}
-		// watch giá trị để cập nhật textbox output & text hiển thị khi có thao tác check/uncheck
-		this.$watch("_data", (value) => {
-			let selecteds = value.filter((x) => x.selected);
-			output.value = selecteds.map((x) => x.value).join(",");
-			if (!selecteds || selecteds.length == 0) {
-			this._setting.text = "-- Chọn một giá trị --";
-			} else if (selecteds.length == 1) {
-			this._setting.text = selecteds[0].text;
-			} else {
-			this._setting.text = `${selecteds.length} giá trị được chọn`;
-			}
+
+		document.addEventListener("alpine:init", function () {
+			/*
+			 * selectedValue: string|array
+			 * mapper: Định nghĩa mảng các key để chuyển đổi dữ liệu theo nguyên tắc
+			 *		0	=>	value
+			 *		1	=>	text
+			 */
+			Alpine.data("bs5autocomplete", (selectedValue, mapper) => ({
+				_setting: {
+					minCharsToFind: 2,
+					placeholder: "Nhập ít nhất {num} ký tự để tìm kiếm",
+					text: "-- Chọn một giá trị --", // Đặt text mặc định để không bị thay đổi layout quá nhiều
+					title: '',
+					style: {
+						maxHeight: "300px",
+						overflow: "auto",
+					},
+				},
+				// dropdown dưới dạng JS object để dễ xử lý
+				_dropdown: {},
+				/**
+				 * mảng chứa object với cấu trúc như sau
+				 *		value				: number|string
+				*		text				: string
+				*		noAccentsText		: string
+				*		selected			: bool
+				*		show				: bool
+				**/
+				_data: [],
+
+				// Input element nhận kết quả chọn
+				_outputEle: {},
+				_isMultiple: false,
+				_uri: '',
+				_name: '',
+				// constructor
+				init() {
+					let dataset = this.$el.dataset;
+					let inpSelector = dataset.select;
+					let multiSelect = dataset.multiple;
+					this._uri = dataset.uri;
+					this._name = dataset.name;
+					this._isMultiple = multiSelect && multiSelect == 'true' ? true : false;
+					this._outputEle = document.querySelector(dataset.outputEle);
+					this._dropdown = new bootstrap.Dropdown(this.$el);
+					this._setting.placeholder = this._setting
+						.placeholder
+						.replace("{num}", this._setting.minCharsToFind);
+					if (inpSelector) {
+						// Lấy data từ thẻ select
+						this.loadDataFormSelect(inpSelector);
+					} else if (this._uri) {
+						// Nhận data từ uri
+						this.loadDataFromUri(this._uri);
+					}
+					this.updateText();
+				},
+				loadDataFormSelect(selector) {
+					let options = Array.from(document.querySelector(selector).options);
+					options.forEach((item) => {
+						let strValue = item.value;
+						let text = item.text;
+						let noAccentsText = text.removeAccents();
+						let dataItem = {
+							value: strValue,
+							text,
+							noAccentsText,
+							show: true,
+							selected: item.selected
+						};
+						this._data.push(dataItem);
+					});
+				},
+				loadDataFromUri(uri) {
+					fetch(uri)
+						.then((res) => res.json())
+						.then((json) => {
+							if (json) {
+								json.forEach((item) => {
+									let strValue = item[mapper[0]].toString();
+									let text = item[mapper[1]];
+									let noAccentsText = text.removeAccents();
+									let dataItem = {
+										value: strValue,
+										text,
+										noAccentsText,
+										show: true,
+									};
+									if (typeof selectedValue == "string" || typeof selectedValue == "number") {
+										dataItem.selected = strValue == selectedValue;
+									} else {
+										dataItem.selected = selectedValue
+											? selectedValue.findIndex((s) => s == strValue) >= 0
+											: false;
+									}
+									this._data.push(dataItem);
+								});
+							}
+						});
+				},
+				updateText() {
+					let selecteds = this._data.filter((x) => x.selected);
+					this._outputEle.value = selecteds.map((x) => x.value).join(",");
+
+					if (!selecteds || selecteds.length == 0) {
+						this._setting.text = "-- Chọn một giá trị --";
+						this._setting.title = "Chọn một giá trị";
+					} else if (selecteds.length == 1) {
+						this._setting.text = selecteds[0].text;
+						this._setting.title = selecteds[0].text;
+					} else {
+						this._setting.text = `${selecteds.length} giá trị được chọn`;
+						this._setting.title = selecteds.map(t => t.text).join("\n");
+					}
+				},
+				getSelectedValue() {
+					return this._data.filter((i) => i.selected == true)?.pop().value;
+				},
+				setSelectedValue(...value) {
+					for (let i = 0; i < this._data.length; i++) {
+						const item = this._data[i];
+						item.selected = value.indexOf(item.value) >= 0;
+					}
+				},
+				toggleCheckbox(item) {
+					if (!this._isMultiple) {
+						for (let i = 0; i < this._data.length; i++) {
+							if (this._data[i].selected && this._data[i] != item) {
+								this._data[i].selected = false;
+							}
+						}
+						this._dropdown.hide();
+					}
+					item.selected = !item.selected;
+					this.updateText();
+				},
+				search(keyword) {
+					if (keyword.length < this._setting.minCharsToFind) {
+						for (let i = 0; i < this._data.length; i++) {
+							this._data[i].show = true;
+						}
+					} else {
+						keyword = keyword.toLowerCase();
+						for (let i = 0; i < this._data.length; i++) {
+							const item = this._data[i];
+							if (item.text.toLowerCase().indexOf(keyword) >= 0 || item.noAccentsText.toLowerCase().indexOf(keyword) >= 0) {
+								item.show = true;
+							} else {
+								item.show = false;
+							}
+						}
+					}
+				},
+			}));
 		});
-		},
-	});
 	</script>
 </body>
+
 </html>
